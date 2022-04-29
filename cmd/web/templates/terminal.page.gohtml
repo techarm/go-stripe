@@ -5,6 +5,7 @@
 {{define "content"}}
 <h2 class="text-center mt-3">Virtual Terminal</h2>
 <hr>
+<div class="alert alert-danger text-center d-none" id="card-messages"></div>
 
 <form action="payment-successed" method="post" name="charge_form" id="charge_form"
     class="d-block needs-validation charge-form" autocomplete="off" novaliadte>
@@ -21,7 +22,7 @@
 
     <div class="mb-3">
         <label for="cardholder-email" class="form-label">CardHolder Email</label>
-        <input type="text" class="form-control" id="cardholder-email" name="cardholder-email" autocomplete="cardholder-email-new" required>
+        <input type="email" class="form-control" id="cardholder-email" name="cardholder-email" autocomplete="cardholder-email-new" required>
     </div>
 
     <div class="mb-3">
@@ -34,6 +35,11 @@
     <hr>
 
     <a id="pay-button" href="javascript:void(0)" class="btn btn-primary" onclick="val()">Charge Card</a>
+    <div id="processing-payment" class="text-center d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 </form>
 
 
@@ -45,9 +51,27 @@
 <script>
     let card;
     let stripe;
-    stripe = Stripe({{index .StringMap "stripe-key"}});
-    function val() {
+    const cardMessages = document.getElementById('card-messages');
+    const payButton = document.getElementById('pay-button');
+    const processing = document.getElementById('processing-payment');
 
+    stripe = Stripe({{index .StringMap "stripe-key"}});
+
+    function hidePayButton() {
+        payButton.classList.add('d-none');
+        processing.classList.remove('d-none');
+    }
+
+    function val() {
+        let form = document.getElementById('charge_form');
+        if (!form.checkValidity()) {
+            this.event.preventDefault();
+            this.event.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+        form.classList.add('was-validated');
+        hidePayButton();
     }
 
     (function() {
