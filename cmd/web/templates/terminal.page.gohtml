@@ -17,12 +17,12 @@
 
     <div class="mb-3">
         <label for="cardholder-name" class="form-label">Cardholder Name</label>
-        <input type="text" class="form-control" id="cardholder-name" name="cardholder-name" autocomplete="cardholder-name-new" required>
+        <input type="text" class="form-control" id="cardholder-name" name="cardholder_name" autocomplete="cardholder-name-new" required>
     </div>
 
     <div class="mb-3">
         <label for="cardholder-email" class="form-label">CardHolder Email</label>
-        <input type="email" class="form-control" id="cardholder-email" name="cardholder-email" autocomplete="cardholder-email-new" required>
+        <input type="email" class="form-control" id="cardholder-email" name="cardholder_email" autocomplete="cardholder-email-new" required>
     </div>
 
     <div class="mb-3">
@@ -111,7 +111,7 @@
             body: JSON.stringify(payload)
         };
 
-        fetch('http://localhost:4001/api/payment-intent', requestOptions)
+        fetch('{{.API}}/api/payment-intent', requestOptions)
             .then(res => res.text())
             .then(res => {
                 let data;
@@ -136,6 +136,10 @@
                                 document.getElementById('payment_currency').value = result.paymentIntent.currency;
                                 processing.classList.add('d-none');
                                 showCardSuccess();
+                                showPayButtons();
+
+                                // post form data to server
+                                document.getElementById('charge_form').submit();
                             }
                         }
                     });
