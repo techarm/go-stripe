@@ -54,6 +54,7 @@ func main() {
 	flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
 	flag.StringVar(&cfg.env, "env", "dev", "Application enviornment {dev|prod}")
 	flag.StringVar(&cfg.api, "api", "http://localhost:4001", "Backend API URL")
+	flag.StringVar(&cfg.db.dsn, "dsn", "", "Data source name")
 	flag.Parse()
 
 	cfg.stripe.key = os.Getenv("STRIPE_KEY")
