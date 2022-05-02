@@ -13,7 +13,7 @@ func (app *application) VirtualTerminal(w http.ResponseWriter, r *http.Request) 
 		StringMap: stringMap,
 	}
 
-	if err := app.renderTemplate(w, r, "terminal", data); err != nil {
+	if err := app.renderTemplate(w, r, "terminal", data, "stripe-js"); err != nil {
 		app.errorLog.Println(err)
 	}
 }
@@ -46,7 +46,14 @@ func (app *application) PaymentSucceeded(w http.ResponseWriter, r *http.Request)
 }
 
 func (app *application) ChargeOnce(w http.ResponseWriter, r *http.Request) {
-	if err := app.renderTemplate(w, r, "buy-once", nil); err != nil {
+	stringMap := make(map[string]string)
+	stringMap["stripe-key"] = app.config.stripe.key
+
+	var data = &tempalteData{
+		StringMap: stringMap,
+	}
+
+	if err := app.renderTemplate(w, r, "buy-once", data, "stripe-js"); err != nil {
 		app.errorLog.Println(err)
 	}
 }
