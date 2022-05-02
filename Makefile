@@ -1,8 +1,8 @@
 # STRIPE_SECRET=${STRIPE_SECRET}
 # STRIPE_KEY=${STRIPE_KEY}
+# DSN=techarm:secret@tcp(localhost:3306)/widgets?parseTime=true&tls=false
 GOSTRIPE_PORT=4000
 API_PORT=4001
-DSN=root@tcp(localhost:3306)/widgets?parseTime=true&tls=false
 
 ## build: builds all binaries
 build: clean build_front build_back
