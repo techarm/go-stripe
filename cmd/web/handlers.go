@@ -2,6 +2,8 @@ package main
 
 import (
 	"net/http"
+
+	"github.com/techarm/go-stripe/internal/models"
 )
 
 func (app *application) VirtualTerminal(w http.ResponseWriter, r *http.Request) {
@@ -46,14 +48,24 @@ func (app *application) PaymentSucceeded(w http.ResponseWriter, r *http.Request)
 }
 
 func (app *application) ChargeOnce(w http.ResponseWriter, r *http.Request) {
+
+	widget := models.Widget{
+		ID:             1,
+		Name:           "Custom Widget",
+		Description:    "A very nice widget",
+		InventoryLevel: 10,
+		Price:          1000,
+	}
+	data := make(map[string]interface{})
+	data["widget"] = widget
+
 	stringMap := make(map[string]string)
 	stringMap["stripe-key"] = app.config.stripe.key
 
-	var data = &tempalteData{
+	if err := app.renderTemplate(w, r, "buy-once", &tempalteData{
 		StringMap: stringMap,
-	}
-
-	if err := app.renderTemplate(w, r, "buy-once", data, "stripe-js"); err != nil {
+		Data:      data,
+	}, "stripe-js"); err != nil {
 		app.errorLog.Println(err)
 	}
 }

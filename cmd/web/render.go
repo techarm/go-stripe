@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
+
+	"github.com/dustin/go-humanize"
 )
 
 type tempalteData struct {
@@ -28,7 +30,16 @@ const TEMPLATE_EXTENSION = ".gohtml"
 const ENV_PRODUCTION = "prod"
 const ENV_DEVELOPMENT = "dev"
 
-var functions = template.FuncMap{}
+var functions = template.FuncMap{
+	"formatCurrency": formatCurrency,
+}
+
+func formatCurrency(n int) string {
+	// f := float32(n / 100)
+	// return fmt.Sprintf("$%.2f", f)
+	s := humanize.Comma(int64(n))
+	return fmt.Sprintf("￥%s", s)
+}
 
 //go:embed templates
 var templateFS embed.FS
