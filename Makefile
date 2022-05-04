@@ -1,6 +1,5 @@
-# STRIPE_SECRET=${STRIPE_SECRET}
-# STRIPE_KEY=${STRIPE_KEY}
-# DSN=techarm:secret@tcp(localhost:3306)/widgets?parseTime=true&tls=false
+include .env
+
 GOSTRIPE_PORT=4000
 API_PORT=4001
 
