@@ -7,7 +7,7 @@
     const payButton = document.getElementById('pay-button');
     const processing = document.getElementById('processing-payment');
 
-    stripe = Stripe({{index .StringMap "stripe-key"}});
+    stripe = Stripe({{.StripeKey}});
 
     function hidePayButtons() {
         payButton.classList.add('d-none');

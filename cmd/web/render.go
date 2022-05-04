@@ -22,6 +22,7 @@ type tempalteData struct {
 	Error           string
 	IsAuthenticated bool
 	API             string
+	StripeKey       string
 	CSSVersion      string
 }
 
@@ -35,8 +36,6 @@ var functions = template.FuncMap{
 }
 
 func formatCurrency(n int) string {
-	// f := float32(n / 100)
-	// return fmt.Sprintf("$%.2f", f)
 	s := humanize.Comma(int64(n))
 	return fmt.Sprintf("￥%s", s)
 }
@@ -46,6 +45,7 @@ var templateFS embed.FS
 
 func (app *application) addDefaultData(td *tempalteData, r *http.Request) *tempalteData {
 	td.API = app.config.api
+	td.StripeKey = app.config.stripe.key
 	return td
 }
 
