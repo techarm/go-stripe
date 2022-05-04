@@ -88,7 +88,7 @@ func (app *application) GetWidgetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	out, err := json.Marshal(widget)
+	out, _ := json.Marshal(widget)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(out)
 }

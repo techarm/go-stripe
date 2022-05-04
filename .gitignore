@@ -16,5 +16,9 @@ dist/
 # Environment variables settings
 .env
 
+# Migration files
+database.yml
+migrations/schema.sql
+
 # Dependency directories (remove the comment below to include it)
 # vendor/
