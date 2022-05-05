@@ -22,13 +22,23 @@ Buy one widget
     <input type="hidden" id="amount" name="amount" value="{{$widget.Price}}">
 
     <div class="mb-3">
-        <label for="cardholder-name" class="form-label">Cardholder Name</label>
-        <input type="text" class="form-control" id="cardholder-name" name="cardholder_name" autocomplete="cardholder-name-new" required>
+        <label for="first-name" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="first-name" name="first_name" autocomplete="first-name-new" required>
     </div>
 
     <div class="mb-3">
-        <label for="cardholder-email" class="form-label">CardHolder Email</label>
-        <input type="email" class="form-control" id="cardholder-email" name="cardholder_email" autocomplete="cardholder-email-new" required>
+        <label for="last-name" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="last-name" name="last_name" autocomplete="last-name-new" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" autocomplete="email-new" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="cardholder-name" class="form-label">Name on Card</label>
+        <input type="text" class="form-control" id="cardholder-name" name="cardholder_name" autocomplete="cardholder-name-new" required>
     </div>
 
     <div class="mb-3">

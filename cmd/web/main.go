@@ -9,12 +9,15 @@ import (
 	"os"
 	"time"
 
+	"github.com/alexedwards/scs/v2"
 	"github.com/techarm/go-stripe/internal/driver"
 	"github.com/techarm/go-stripe/internal/models"
 )
 
 const version = "1.0.0"
 const cssVersion = "1"
+
+var session *scs.Session
 
 type config struct {
 	port int
@@ -36,6 +39,7 @@ type application struct {
 	templateCache map[string]*template.Template
 	version       string
 	DB            models.DBModel
+	Session       *scs.SessionManager
 }
 
 func (app application) serve() error {
@@ -73,6 +77,10 @@ func main() {
 	}
 	defer conn.Close()
 
+	// setup session
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+
 	tc := make(map[string]*template.Template)
 
 	app := &application{
@@ -82,6 +90,7 @@ func main() {
 		templateCache: tc,
 		version:       version,
 		DB:            models.DBModel{DB: conn},
+		Session:       session,
 	}
 
 	err = app.serve()
