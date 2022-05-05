@@ -13,12 +13,12 @@ Buy one widget
 <img src="/static/widget.png" alt="widget" class="image-fluid rounded mx-auto d-block">
 
 <form action="/payment-successed" method="post" name="charge_form" id="charge_form"
-    class="d-block needs-validation charge-form" autocomplete="off" novaliadte>
+    class="d-block needs-validation charge-form mb-3" autocomplete="off" novaliadte>
 
     <h4 class="text-center mb-2">{{$widget.Name}}: {{formatCurrency $widget.Price}}</h4>
     <p class="text-muted text-center">{{$widget.Description}}</p>
 
-    <input type="hidden" name="product_id" value="{{$widget.ID}}">
+    <input type="hidden" id="product-id" name="product_id" value="{{$widget.ID}}">
     <input type="hidden" id="amount" name="amount" value="{{$widget.Price}}">
 
     <div class="mb-3">
